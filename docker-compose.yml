@@ -1,0 +1,57 @@
+version: "3"
+
+services:
+  db-service:
+    image: mongo
+    restart: always # restart on failure
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+
+  diets-service:
+    build: ./diets
+    restart: always # restart on failure
+    volumes:
+      - type: bind
+        source: ./diets #host directory
+        target: /app # container directory
+    environment:
+        FLASK_DEBUG: "true"
+    ports:
+      - "5002:5002"
+    expose:
+      - 5002  # allows dishes-meals-service access to diets service
+    depends_on:
+      - db-service
+
+
+  dishes-meals-service:
+    build: ./dishes_meals
+    restart: always # restart on failure
+    volumes:
+      - type: bind
+        source: ./dishes_meals # host directory
+        target: /app # container directory
+    environment:
+        FLASK_DEBUG: "true"
+    ports:
+      - "5001:5001"
+    depends_on:
+      - db-service
+      - diets-service
+
+
+  reverse-proxy-service:
+    build: ./reverse
+    restart: always # restart on failure
+    ports:
+      - "80:80"
+    depends_on:
+      - diets-service
+      - dishes-meals-service
+
+
+volumes:
+  mongo_data:
