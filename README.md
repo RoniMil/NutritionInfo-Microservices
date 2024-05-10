@@ -7,7 +7,7 @@ This application includes a Meals-Dishes service, a Diets service, a Database se
 
 The Database for both Meals and Diets services is persistent. Therefore, if the containers are stopped/paused/killed, when started again the Meals/Diets that were in the DB before shut down remain - as long as the volume isn't removed. In addition, if failure occurs the containers restart immediately.
 
-There 4 services do the following:
+There are 4 services that do the following:
 
 1. **Meals-Dishes Service** - Manages meals and dishes information and provides endpoints to create and retrieve meals and dishe.
 2. **Diets Service** - Manages diet information and provides endpoints to create and retrieve diets.
