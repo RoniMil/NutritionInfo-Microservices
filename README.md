@@ -1,4 +1,4 @@
-# NutritionInformation-Microservice
+# NutritionInformation-Microservices
 
 To run, you need to use **docker-compose up --build** command to create the containers.
 Afterward you can issue HTTP commands using cURL/postman.
